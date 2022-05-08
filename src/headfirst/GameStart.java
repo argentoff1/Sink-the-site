@@ -1,21 +1,27 @@
 package headfirst;
 
-import java.util.Scanner;
-
 public class GameStart {
 
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+        int numOfGuesses = 0;
+
+        GameHelper gameHelper = new GameHelper();
 
         DotCom dotCom = new DotCom();
+        int randomNum = (int) (Math.random() * 5);
 
-        int[] location = {2, 3, 4};
-        dotCom.setLocationCells(location);
+        int[] locations = {randomNum, randomNum + 1, randomNum + 2};
+        dotCom.setLocationCells(locations);
+        boolean isAlive = true;
 
-        System.out.print("Введите ваш вариант: ");
-        String userGuess = scanner.next();
-        String result = dotCom.checkYourself(userGuess);
-
-        System.out.println(result);
+        while (isAlive == true) {
+            String guess = gameHelper.getUserInput("Введите число: ");
+            String result = dotCom.checkYourself(guess);
+            numOfGuesses++;
+            if (result.equals("Потопил")) {
+                isAlive = false;
+                System.out.println("Для победы вам потребовалось " + numOfGuesses + " ходов");
+            }
+        }
     }
 }
