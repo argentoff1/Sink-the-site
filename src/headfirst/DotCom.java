@@ -1,31 +1,31 @@
 package headfirst;
 
+import java.util.ArrayList;
 
 public class DotCom {
-    private int[] locationCells;
-    private int numOfHits = 0;
+    private ArrayList<String> locationCells;
+    private String name;
 
-    public void setLocationCells(int[] locs) {
-        locationCells = new int[7];
-        locationCells = locs;
+    public void setLocationCells(ArrayList<String> loc) {
+        locationCells = loc;
     }
 
-    public String checkYourself(String stringGuess) {
-        int guess = Integer.parseInt(stringGuess);
+    public void setName(String n) {
+        name = n;
+    }
+
+    public String checkYourself(String userInput) {
         String result = "Мимо";
+        int index = locationCells.indexOf(userInput);
 
-        for (int cell : locationCells) {
-            if (guess == cell) {
+        if (index >= 0) {
+            locationCells.remove(index);
+            if (locationCells.isEmpty()) {
+                result = "Потопил";
+                System.out.println("Вы потопили " + name);
+            } else
                 result = "Попал";
-                numOfHits++;
-                break;
-            }
         }
-
-        if (numOfHits == locationCells.length)
-            result = "Потопил";
-
-        System.out.println(result);
         return result;
     }
 }
